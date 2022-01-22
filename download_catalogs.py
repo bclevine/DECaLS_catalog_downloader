@@ -32,7 +32,6 @@ def download_cat(ra, dec, size=0.03, download_folder='/catalogs', download_name=
         download_name (string, optional): Name of the folder to place the catalog into. Defaults to ''. 
                                           If empty (such as in default case), catalogs will be named with ra and dec.
         overwrite (bool, optional): Should we overwrite pre-existing files? Defaults to False.
-        log (bool, optional): Keep a log file? Defaults to False.
         verbose (bool, optional): Verbose? Defaults to False.
     """    
     
