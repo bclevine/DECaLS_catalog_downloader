@@ -6,13 +6,35 @@ The catalog downloader requires the following packages, which come with standard
 The downloader optionally uses [tqdm](https://github.com/tqdm/tqdm) to implement a progress bar. tqdm can be installed through `pip install tqdm`. If tqdm is not installed, the script should fall back to default multithreading, but I have not actually tested this...
 
 ## Running the Script
+### Download the Repository
 First, download this repository onto your device. You can either manually download, or navigate to your chosen directory and run:
 
 ```
 git clone https://github.com/bclevine/DECaLS_catalog_downloader.git
 ```
 
+### Put Coordinates into Textfile
 Once this is done, copy your coordinate list into a textfile. An example file comes with this distribution, but if you would like to use a different one (or have multiple in the directory) you can specify the name of the file when running the code. The row structure of the file should be as follows: `ra_coordinate dec_coordinate size_of_cutout name_of_cutout`
 
 You can use spaces or tabs to separate the entries. The textfile can have as many columns as you'd like. The name of the cutout is optional. If no name is provided, each cutout will be named after its ra and dec position. 
 
+### Run the Script
+It's time to run the script. In your terminal, navigate to the directory and type the following command:
+
+```
+python3 download_catalogs.py
+```
+
+The following flags are available:
+1. *-n [number of threads]* : How many threads should be used for multithreading? More threads will usually be faster. Defaults to 25.
+2. *-t [textfile name]* : Name of textfile to pull coordinates from. Defaults to 'cutout_list.txt'.
+3. *-f [download folder]* : Name of the folder in which to place catalog downloads. Defaults to '/catalogs'. Use '' to place downloads in the top-level directory.
+4. *-l [length of coordinate list]* : For testing, you may not want to download the entire catalog from your textfile. This number will cap the list at a certain index — for example, `-l 5` will download the first 5 coordinates from the list. Leave the flag blank to download the entire textfile.
+5. *-o [overwrite]* : By default, the script will skip any catalogs with duplicate names in the download folder. Overwrite will force it to overwrite any pre-existing catalogs. Defaults to False.
+6. *-v [verbose]* : Use verbose output? Defaults to False. If True, the progress bar will be disabled.
+
+For example, the following command will use 10 threads, download the first 60 coordinates in the textfile, and place downloads in the folder '/all_catalogs'.
+
+```
+python3 download_catalogs.py -n 10 -l 60 -f '/all_catalogs'
+```
