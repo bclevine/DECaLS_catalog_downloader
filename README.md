@@ -38,3 +38,23 @@ For example, the following command will use 10 threads, download the first 60 co
 ```
 python3 download_catalogs.py -n 10 -l 60 -f '/all_catalogs'
 ```
+
+## Usage as a Python Module
+You can use this script as a module for another script or a Jupyter notebook by placing it in the top-level directory. The usable function is `download_cat(ra, dec, size=0.03, download_folder='/catalogs', download_name='', overwrite=False, verbose=False)` and has the following arguments:
+
+* ra (float): Center coordinate of cutout
+* dec (float): Center coordinate of cutout
+* size (float, optional): Diameter (width) of the cutout. Defaults to 0.03.
+* download_folder (string, optional): Name of the folder to place the catalog into. Defaults to '/catalogs'. Use '' to place the catalog in the current directory.
+* download_name (string, optional): Name of the folder to place the catalog into. Defaults to ''. If empty (such as in default case), catalogs will be named with ra and dec.
+* overwrite (bool, optional): Should we overwrite pre-existing files? Defaults to False.
+* verbose (bool, optional): Verbose? Defaults to False.
+
+For example:
+
+```
+from download_catalogs import download_cat
+
+download_cat(100, 30, overwrite=True)
+download_cat(101, 31, download_folder='', verbose=True)
+```
