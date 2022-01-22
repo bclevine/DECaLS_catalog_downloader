@@ -18,6 +18,8 @@ Once this is done, copy your coordinate list into a textfile. An example file co
 
 You can use spaces or tabs to separate the entries. The textfile can have as many columns as you'd like. The name of the cutout is optional. If no name is provided, each cutout will be named after its ra and dec position. 
 
+To do this easily, I recommend making a Google sheet or Excel spreadsheet with all the values you want, and then just copy/pasting that into the txt file.
+
 ### Run the Script
 It's time to run the script. In your terminal, navigate to the directory and type the following command:
 
