@@ -7,4 +7,5 @@ The downloader optionally uses [tqdm](https://github.com/tqdm/tqdm) to implement
 
 ## Running the Script
 Begin by copying your coordinate list into a textfile. An example file comes with this distribution, but if you would like to use a different one (or have multiple in the directory) you can specify the name of the file when running the code. The structure of the file should be as follows:
+
 ```ra_coordinate dec_coordinate size_of_cutout name_of_cutout```
