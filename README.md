@@ -16,7 +16,7 @@ git clone https://github.com/bclevine/DECaLS_catalog_downloader.git
 ### Put Coordinates into Textfile
 Once this is done, copy your coordinate list into a textfile. An example file comes with this distribution, but if you would like to use a different one (or have multiple in the directory) you can specify the name of the file when running the code. The row structure of the file should be as follows: `ra_coordinate dec_coordinate size_of_cutout name_of_cutout`
 
-You can use spaces or tabs to separate the entries. The textfile can have as many columns as you'd like. The name of the cutout is optional. If no name is provided, each cutout will be named after its ra and dec position. The size of the cutout is its width in degrees.
+You can use spaces or tabs to separate the entries. The textfile can have as many columns as you'd like. The name of the cutout is optional. If no name is provided, each cutout will be named after its ra and dec position. Custom file names cannot contain spaces. It's also recommended (but not required) to include the .fits extension in the custom name, as the script will not append that on its own. The size of the cutout is its width in degrees.
 
 To do this easily, I recommend making a Google sheet or Excel spreadsheet with all the values you want, and then just copy/pasting that into the txt file.
 
