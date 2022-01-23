@@ -16,7 +16,7 @@ git clone https://github.com/bclevine/DECaLS_catalog_downloader.git
 ### Put Coordinates into Textfile
 Once this is done, copy your coordinate list into a textfile. An example file comes with this distribution, but if you would like to use a different one (or have multiple in the directory) you can specify the name of the file when running the code. The row structure of the file should be as follows: `ra_coordinate dec_coordinate size_of_cutout name_of_cutout`
 
-You can use spaces or tabs to separate the entries. The textfile can have as many columns as you'd like. The name of the cutout is optional. If no name is provided, each cutout will be named after its ra and dec position. 
+You can use spaces or tabs to separate the entries. The textfile can have as many columns as you'd like. The name of the cutout is optional. If no name is provided, each cutout will be named after its ra and dec position. The size of the cutout is its width in degrees.
 
 To do this easily, I recommend making a Google sheet or Excel spreadsheet with all the values you want, and then just copy/pasting that into the txt file.
 
@@ -46,7 +46,7 @@ You can use this script as a module for another script or a Jupyter notebook by 
 
 * ra (float): Center coordinate of cutout
 * dec (float): Center coordinate of cutout
-* size (float, optional): Diameter (width) of the cutout. Defaults to 0.03.
+* size (float, optional): Diameter (width) of the cutout in degrees. Defaults to 0.03.
 * download_folder (string, optional): Name of the folder to place the catalog into. Defaults to '/catalogs'. Use '' to place the catalog in the current directory.
 * download_name (string, optional): Name of the folder to place the catalog into. Defaults to ''. If empty (such as in default case), catalogs will be named with ra and dec.
 * overwrite (bool, optional): Should we overwrite pre-existing files? Defaults to False.
