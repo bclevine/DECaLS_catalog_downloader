@@ -18,12 +18,15 @@ Once this is done, copy your coordinate list into a textfile. An example file co
 
 **Notes:**
 
-1. You can use spaces and/or tabs to separate the entries. 
-2. The textfile can have as many columns as you'd like. 
-3. The name of the cutout is optional. If no name is provided, each cutout will be named after its ra and dec position. 
-4. Custom file names *cannot* contain spaces. 
-5. It's recommended (but not required) to include the .fits extension in the custom name, as the script will not append that on its own. 
-6. The size of the cutout is its width in degrees. 
+1. The file MUST either have a .txt or .csv extension. 
+2. For .txt files, you can use spaces and/or tabs to separate the entries. For .csv files, you must use commas to separate the entries.
+4. The textfile can have as many rows as you'd like. 
+5. The size of the cutout is optional. If no size is provided. each cutout will be 0.03 square degrees.
+6. The name of the cutout is optional. If no name is provided, each cutout will be named after its ra and dec position. 
+8. Custom file names *cannot* contain spaces. 
+9. It's recommended (but not required) to include the .fits extension in the custom name, as the script will not append that on its own. 
+10. The file can have a header, but you will have to specify that when running the script (see below).
+11. The size of the cutout is its width in degrees. 
 
 To easily make the textfile, I recommend making a Google sheet or Excel spreadsheet with all the values you want, and then just copy/pasting that into the txt file.
 
@@ -37,10 +40,11 @@ python3 download_catalogs.py
 The following flags are available:
 1. *-n [number of threads]* : How many threads should be used for multithreading? More threads will usually be faster. Defaults to 25.
 2. *-t [textfile name]* : Name of textfile to pull coordinates from. Defaults to 'cutout_list.txt'.
-3. *-f [download folder]* : Name of the folder in which to place catalog downloads. Defaults to '/catalogs'. Use '' to place downloads in the top-level directory.
-4. *-l [length of coordinate list]* : For testing, you may not want to download the entire catalog from your textfile. This number will cap the list at a certain index — for example, `-l 5` will download the first 5 coordinates from the list. Leave the flag blank to download the entire textfile.
-5. *-o [overwrite]* : By default, the script will skip any catalogs with duplicate names in the download folder. Overwrite will force it to overwrite any pre-existing catalogs. Defaults to False.
-6. *-v [verbose]* : Use verbose output? Defaults to False. If True, the progress bar will be disabled.
+3. *--header [boolean]* : Whether or not the textfile has a header. Defaults to False.
+4. *-f [download folder]* : Name of the folder in which to place catalog downloads. Defaults to '/catalogs'. Use '' to place downloads in the top-level directory.
+5. *-l [length of coordinate list]* : For testing, you may not want to download the entire catalog from your textfile. This number will cap the list at a certain index — for example, `-l 5` will download the first 5 coordinates from the list. Leave the flag blank to download the entire textfile.
+6. *-o [overwrite]* : By default, the script will skip any catalogs with duplicate names in the download folder. Overwrite will force it to overwrite any pre-existing catalogs. Defaults to False.
+7. *-v [verbose]* : Use verbose output? Defaults to False. If True, the progress bar will be disabled.
 
 For example, the following command will use 10 threads, download the first 60 coordinates in the textfile, and place downloads in the folder '/all_catalogs'.
 
