@@ -73,6 +73,7 @@ def argument_parser():
     result = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     result.add_argument('-n', dest='n_threads', type=int, default=25) 
     result.add_argument('-t', dest='textfile', type=str, default='cutout_list.txt')
+    result.add_argument('--header', dest='header', type=bool, default=False)
     result.add_argument('-l', dest='length', type=int, default=-10)
     result.add_argument('-v', dest='verbose', type=bool, default=False)
     result.add_argument('-f', dest='folder', type=str, default='/catalogs')
@@ -92,8 +93,20 @@ if not args.verbose:
         pass
     
 #LOAD IN THE CATALOG
-cat = pd.read_csv(args.textfile, names=['ra','dec','size','name'], delim_whitespace=True)
-cat = cat.astype({'ra':'float', 'dec':'float', 'size':'float', 'name':'string'})
+if args.header == False:
+    head = None
+else:
+    head = 0
+#If a txt file (no commas):
+if '.txt' in args.textfile:
+    cat = pd.read_csv(args.textfile, header=head, names=['ra','dec','size','name'], delim_whitespace=True)
+    cat = cat.astype({'ra':'float', 'dec':'float', 'size':'float', 'name':'string'})
+#If a csv file (comma separated):
+elif '.csv' in args.textfile:
+    cat = pd.read_csv(args.textfile, sep=',', header=head, names=['ra','dec','size','name'], skipinitialspace=True)
+    cat = cat.astype({'ra':'float', 'dec':'float', 'size':'float', 'name':'string'})
+else:
+    raise ValueError('Textfile must be either a .txt or .csv file.')
 
 #WRAPPER FUNCTION FOR MULTITHREADING
 def download_single_cutout(i):
@@ -108,7 +121,12 @@ def download_single_cutout(i):
     else:
         name = params['name']
         
-    download_cat(params['ra'], params['dec'], params['size'], args.folder, name, args.overwrite, args.verbose)
+    if pd.isna(params['size']):
+        size = 0.03
+    else:
+        size = params['size']
+        
+    download_cat(params['ra'], params['dec'], size, args.folder, name, args.overwrite, args.verbose)
     return None
 
 #MULTITHREADING FUNCTION
