@@ -73,7 +73,7 @@ download_cat(101, 31, download_folder='', verbose=True)
 ```
 
 ## Troubleshooting/Known Issues
-Some systems may encounter an SSL verification error when trying to download catalogs. You can recognize this issue if you see something like `[SSL: CERTIFICATE_VERIFY_FAILED]` when running in verbose mode. One potential workaround is to add the following code after the `#MULTITHREADING` block in `download_catalogs.py' (line ~17). Thanks to Ruoyang (Murphy) Tu for finding this solution:
+Some systems may encounter an SSL verification error when trying to download catalogs. You can recognize this issue if you see something like `[SSL: CERTIFICATE_VERIFY_FAILED]` when running in verbose mode. One potential workaround is to add the following code after the `#MULTITHREADING` block in `download_catalogs.py` (line ~17). Thanks to Ruoyang (Murphy) Tu for finding this solution:
 ​
 ```
 #SSL ERROR FIXING
