@@ -9,6 +9,8 @@ import os
 import urllib.request as urlib
 import argparse
 import pandas as pd
+from dl import queryClient as qc
+from dl.helpers.utils import convert
 
 #MULTITHREADING
 from multiprocessing import Pool
@@ -18,8 +20,36 @@ warnings.filterwarnings("ignore")
 #DEFINE A FEW PARAMETERS
 outputs = os.getcwd()
 url = 'https://www.legacysurvey.org/viewer/ls-dr9/cat.fits?ralo={}&rahi={}&declo={}&dechi={}'
+query = 'SELECT {} FROM ls_dr9.tractor WHERE ra>{} AND ra<{} AND dec>{} AND dec<{}'
 
-#DOWNLOAD FUNCTION
+#DOWNLOAD FUNCTIONS
+def sql_cat(ra, dec, size=0.03, columns='ra, dec', verbose=False):
+    """Load data directly into a pandas dataframe from the SQL database.
+
+    Args:
+        ra (float): Center coordinate of cutout
+        dec (float): Center coordinate of cutout
+        size (float, optional): Diameter (width) of the cutout. Defaults to 0.03.
+        verbose (bool, optional): Verbose? Defaults to False.
+        
+    Returns:
+        Pandas DataFrame with catalog info
+    """    
+    
+    #Explicitly calculate the bounds of the cutout.
+    ra_min = ra-(size/2)
+    ra_max = ra+(size/2)
+    dec_min = dec-(size/2)
+    dec_max = dec+(size/2)
+    
+    #If overwrite==False and and file exists, don't download. Otherwise, download the file.
+    response = qc.query(adql = query.format(columns, ra_min, ra_max, dec_min, dec_max), fmt='csv')
+    df = convert(response)
+    if verbose:
+        print('\x1b[33m Catalog at [', ra, dec,'] already exists. \x1b[0m')
+    return df
+
+
 def download_cat(ra, dec, size=0.03, download_folder='/catalogs', download_name='', overwrite=False, verbose=False):
     """Download catalog into a specified folder.
 
@@ -42,6 +72,9 @@ def download_cat(ra, dec, size=0.03, download_folder='/catalogs', download_name=
     dec_max = dec+(size/2)
 
     #Get the download destination
+    if not os.path.isdir(download_folder[1:]):
+        raise ValueError(download_folder + ' not found. Does the folder exist?')
+    
     if download_name=='':
         outname = download_folder+'/'+str(ra)+'_'+str(dec)+'.fits'
     else:
@@ -150,5 +183,8 @@ def download_all_cutouts():
 
 #MAIN
 if __name__ == '__main__':
-    download_all_cutouts()
-    print('Finished!')
+    try:
+        download_all_cutouts()
+        print('Finished!')
+    except Exception as e:
+        print(e)
