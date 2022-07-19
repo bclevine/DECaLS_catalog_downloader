@@ -1,6 +1,8 @@
 # DECaLS_catalog_downloader
 A script to quickly download large batches of catalogs from the [DECaLS survey](https://www.legacysurvey.org/dr9/description/) data server. The downloading code may also be easily imported into other Python scripts or Jupyter notebooks for greater control over the download process.
 
+*Note — if you only need a single catalog, it is usually faster to use the [astro-datalab Query Client package](https://github.com/astro-datalab/notebooks-latest/blob/master/04_HowTos/QueryClient/How_to_use_the_Data_Lab_QueryClient.ipynb) instead.*
+
 ## Dependencies 
 The catalog downloader requires the following packages, which come with standard Conda distributions: *os, urllib, argparse, multiprocessing,* and *pandas*.
 The downloader optionally uses *[tqdm](https://github.com/tqdm/tqdm)* to implement a progress bar. tqdm can be installed through `pip install tqdm`. If tqdm is not installed, the script should fall back to default multithreading, but I have not actually tested this...
